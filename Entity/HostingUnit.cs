@@ -8,8 +8,8 @@ namespace Entity
 {
     public class HostingUnit : IComparable<HostingUnit>
     {
-        private int stSerialKey;
-        int HostingUnitKey
+        private long stSerialKey;
+        public long HostingUnitKey
         {
             get
             {
@@ -33,7 +33,7 @@ namespace Entity
         {
             return 0;
         }
-
+                     
         public float GetAnnualBusyPercentage()
         {
             return 0;

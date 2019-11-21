@@ -72,9 +72,9 @@ namespace ConsoleUI
             foreach (var host in lsHosts)
             {
                 //test Host IEnuramble is ok
-                foreach (HostingUnit unit in host)
+                foreach (HostingUnit unit in host.HostingUnitCollection)
                 {
-                    dict[unit.HostingUnitKey] = unit.GetAnnualBusyPrecentege();
+                    dict[unit.HostingUnitKey] = unit.GetAnnualBusyPercentage();
                 }
             }
 
@@ -82,8 +82,7 @@ namespace ConsoleUI
             float maxVal = dict.Values.Max();
 
             //get max value key name in dictionary
-            long maxKey =
-dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
+            long maxKey =dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
 
             //find the Host that its unit has the maximum occupancy percentage
             foreach (var host in lsHosts)
@@ -91,7 +90,7 @@ dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
                 //test indexer of Host
                 for (int i = 0; i < host.HostingUnitCollection.Count; i++)
                 {
-                    if (host[i].HostingUnitKey == maxKey)
+                    if (host.HostingUnitCollection[i].HostingUnitKey == maxKey)
                     {
                         //sort this host by occupancy of its units
                         host.SortUnits();
