@@ -78,6 +78,10 @@ namespace ConsoleUI
                 }
             }
 
+            //just for now to star working the app
+            return;
+
+
             //get max value in dictionary
             float maxVal = dict.Values.Max();
 
