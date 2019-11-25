@@ -8,13 +8,20 @@ namespace Entity
 {
     public class GuestRequest
     {
-        public DateTime Entry_Date { get { return Entry_Date; } set { Entry_Date = value; } }
-        public DateTime Release_Date { get { return Release_Date; } set { Release_Date = value; } }
-        public bool Is_Approveed { get { return Is_Approveed; } set { Is_Approveed = value; } }
+        public DateTime Entry_Date { get; set; }
+        public DateTime Release_Date { get; set; }
 
+        public GuestRequest(DateTime _Entry_Date, DateTime _Release_Date)
+        {
+            Entry_Date = _Entry_Date;
+            Release_Date = _Release_Date;
+        }
+       
+
+        public bool Is_Approved { get; set; }
         public override string ToString()
         {
-            return ("GuestRequest:\n" + Entry_Date + "\n" + Release_Date + "\n" + Is_Approveed);
+            return ("GuestRequest:\n" + Entry_Date + "\n" + Release_Date + "\n" + Is_Approved);
         }
     }
 }

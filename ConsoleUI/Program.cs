@@ -10,45 +10,45 @@ namespace ConsoleUI
 
     class Program
     {
-
         static Random rand = new Random(DateTime.Now.Millisecond);
-
         private static GuestRequest CreateRandomRequest()
         {
-            GuestRequest gs = new GuestRequest();
 
+            DateTime start = new DateTime(2019, 1, 1,0,0,0);
+            DateTime end = new DateTime(2019, 1, 1, 0, 0, 0);
+
+            int range = rand.Next(1, 250);  // creates a number between 1 and 365
+            int helper = range;
+            start = start.AddDays(range);
+            while (end < start)
+            {
+                range = rand.Next(1, 365);  // creates a number between 1 and 365
+                end = end.AddDays(range);
+            }
+
+
+            GuestRequest gs = new GuestRequest(start, end);
             //Fill randomally the Entry and Release dates of gs
-
             return gs;
         }
-
         static void Main(string[] args)
         {
             List<Host> lsHosts;
             lsHosts = new List<Host>()
             {
-                new Host(1, rand.Next(1,5)),
-                new Host(2, rand.Next(1,5)),
-                new Host(3, rand.Next(1,5)),
-                new Host(4, rand.Next(1,5)),
-                new Host(5, rand.Next(1,5))
+            new Host(1, rand.Next(1,5)),
+            new Host(2, rand.Next(1,5)),
+            new Host(3, rand.Next(1,5)),
+            new Host(4, rand.Next(1,5)),
+            new Host(5, rand.Next(1,5))
             };
-
-            GuestRequest gs1 = new GuestRequest();
-            GuestRequest gs2 = new GuestRequest();
-            GuestRequest gs3 = new GuestRequest();
-
             for (int i = 0; i < 100; i++)
             {
                 foreach (var host in lsHosts)
                 {
-                    if (!gs1.IsApproved)
-                        gs1 = CreateRandomRequest();
-                    if (!gs2.IsApproved)
-                        gs2 = CreateRandomRequest();
-                    if (!gs3.IsApproved)
-                        gs3 = CreateRandomRequest();
-
+                    GuestRequest gs1 = CreateRandomRequest();
+                    GuestRequest gs2 = CreateRandomRequest();
+                    GuestRequest gs3 = CreateRandomRequest();
                     switch (rand.Next(1, 4))
                     {
                         case 1:
@@ -65,7 +65,6 @@ namespace ConsoleUI
                     }
                 }
             }
-
             //Create dictionary for all units <unitkey, occupancy_percentage>
             Dictionary<long, float> dict = new Dictionary<long, float>();
             foreach (var host in lsHosts)
@@ -76,17 +75,10 @@ namespace ConsoleUI
                     dict[unit.HostingUnitKey] = unit.GetAnnualBusyPercentage();
                 }
             }
-
-            //just for now to star working the app
-            return;
-
-
             //get max value in dictionary
-            float maxVal = dict.Values.Max();
-
+            //float maxVal = dict.Values.Max();
             //get max value key name in dictionary
-            long maxKey =dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
-
+            long maxKey = dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
             //find the Host that its unit has the maximum occupancy percentage
             foreach (var host in lsHosts)
             {
@@ -102,7 +94,6 @@ namespace ConsoleUI
                         Console.WriteLine(host);
                         break;
                     }
-
                 }
             }
         }
