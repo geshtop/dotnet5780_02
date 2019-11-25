@@ -8,7 +8,6 @@ using Entity;
 namespace ConsoleUI
 {
 
-
     class Program
     {
 
