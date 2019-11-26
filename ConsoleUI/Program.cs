@@ -14,7 +14,7 @@ namespace ConsoleUI
         private static GuestRequest CreateRandomRequest()
         {
 
-            DateTime start = new DateTime(2019, 1, 1,0,0,0);
+            DateTime start = new DateTime(2019, 1, 1, 0, 0, 0);
             DateTime end = new DateTime(2019, 1, 1, 0, 0, 0);
 
             int range = rand.Next(1, 250);  // creates a number between 1 and 365
@@ -70,22 +70,23 @@ namespace ConsoleUI
             foreach (var host in lsHosts)
             {
                 //test Host IEnuramble is ok
-                foreach (HostingUnit unit in host.HostingUnitCollection)
+                foreach (HostingUnit unit in host)
                 {
                     dict[unit.HostingUnitKey] = unit.GetAnnualBusyPercentage();
                 }
             }
             //get max value in dictionary
-            //float maxVal = dict.Values.Max();
+            float maxVal = dict.Values.Max();
             //get max value key name in dictionary
-            long maxKey = dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
+            long maxKey =
+            dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
             //find the Host that its unit has the maximum occupancy percentage
             foreach (var host in lsHosts)
             {
                 //test indexer of Host
                 for (int i = 0; i < host.HostingUnitCollection.Count; i++)
                 {
-                    if (host.HostingUnitCollection[i].HostingUnitKey == maxKey)
+                    if (host[i].HostingUnitKey == maxKey)
                     {
                         //sort this host by occupancy of its units
                         host.SortUnits();
@@ -97,6 +98,9 @@ namespace ConsoleUI
                 }
             }
         }
+
+
+
     }
 }
 

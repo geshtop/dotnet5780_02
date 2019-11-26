@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    public class Host
+    public class Host : IEnumerable<HostingUnit>
     {
         public Host(int _key, int _numOfHostings)
         {
@@ -70,5 +71,38 @@ namespace Entity
             }
             return success;
         }
+
+        public HostingUnit this[int index]
+        {
+            get {
+                if (index < HostingUnitCollection.Count())
+                {
+                    return HostingUnitCollection[index];
+                }
+                return null;
+            }
+           // set { /* set the specified index to value here */ }
+        }
+
+
+
+        public IEnumerator<HostingUnit> GetEnumerator()
+        {
+            foreach (HostingUnit val in HostingUnitCollection)
+            {
+                yield return val;
+            }
+        }
+
+
+      
+
+        //This method is also needed, but usually you don't need to change it from this.
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+       
     }
 }
