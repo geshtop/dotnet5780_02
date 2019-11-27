@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    public class Host : IEnumerable<HostingUnit>
+    public class Host : IEnumerable<HostingUnit> //Host class
     {
-        public Host(int _key, int _numOfHostings)
+        public Host(int _key, int _numOfHostings) //constructor
         {
             HostKey = _key;
             HostingUnitCollection = new List<HostingUnit>();
@@ -21,7 +21,7 @@ namespace Entity
         public int HostKey { get; set; }
         public List<HostingUnit> HostingUnitCollection { get; set; }
 
-        public override string ToString()
+        public override string ToString() //Print the host's hosting units
         {
             string s = "";
             for (int i = 0; i < HostingUnitCollection.Count(); i++)
@@ -32,14 +32,13 @@ namespace Entity
 
             return s;
         }
-
-
+        
         private long SubmitRequest(GuestRequest guestReq)
         {
             return 0;
         }
 
-        public int GetHostAnnualBusyDays()
+        public int GetHostAnnualBusyDays() //Checks busy days in all units
         {
             int counter = 0;
             for (int i = 0; i < HostingUnitCollection.Count(); i++)
@@ -50,7 +49,7 @@ namespace Entity
             return counter;
         }
 
-        public void SortUnits()
+        public void SortUnits()  //Sorting units by occupancy
         {
             HostingUnitCollection.Sort();
         }
@@ -72,9 +71,10 @@ namespace Entity
             return success;
         }
 
-        public HostingUnit this[int index]
+        public HostingUnit this[int index] //Returns a unit serial number
         {
-            get {
+            get
+            {
                 if (index < HostingUnitCollection.Count())
                 {
                     return HostingUnitCollection[index];
@@ -83,26 +83,19 @@ namespace Entity
             }
            // set { /* set the specified index to value here */ }
         }
-
-
-
-        public IEnumerator<HostingUnit> GetEnumerator()
+        
+        public IEnumerator<HostingUnit> GetEnumerator() 
         {
             foreach (HostingUnit val in HostingUnitCollection)
             {
                 yield return val;
             }
         }
-
-
-      
-
+        
         //This method is also needed, but usually you don't need to change it from this.
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
-
-       
     }
 }

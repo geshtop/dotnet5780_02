@@ -7,13 +7,11 @@ using Entity;
 
 namespace ConsoleUI
 {
-
     class Program
     {
         static Random rand = new Random(DateTime.Now.Millisecond);
         private static GuestRequest CreateRandomRequest()
         {
-
             DateTime start = new DateTime(2019, 1, 1, 0, 0, 0);
             DateTime end = new DateTime(2019, 1, 1, 0, 0, 0);
 
@@ -98,9 +96,6 @@ namespace ConsoleUI
                 }
             }
         }
-
-
-
     }
 }
 

@@ -16,7 +16,7 @@ namespace Entity
         //התקופות המלאות
         public List<GuestRequest> ApprovedTimes { get; set; }
 
-        public Diary()
+        public Diary() //constructor
         {
             Calender = new bool[12, 31];
             ApprovedTimes = new List<GuestRequest>();
@@ -28,6 +28,7 @@ namespace Entity
         {
            return SetCalendarDatesAsBusy(guestReq);
         }
+
         //קבלת הימים המלאים בלוח השנה
         //public int sdsBusyDays()
         //{
@@ -159,17 +160,53 @@ namespace Entity
             }
             return flag;
         }
-
-
-        public override string ToString()
+        
+        public override string ToString() //Printing busy days a year
         {
             string s = "";
-            for (int i = 0; i < ApprovedTimes.Count(); i++)
+            //for (int i = 0; i < ApprovedTimes.Count(); i++)
+            //{
+            //    s += ApprovedTimes[i].Entry_Date.ToString("dd/MM/yyyy") + " - " + ApprovedTimes[i].Release_Date.ToString("dd/MM/yyyy") + "\n";
+            //}
+            DateTime first;
+            DateTime last;
+            int num = 0;
+            for (int i = 0; i < 12; i++)
             {
-                s += ApprovedTimes[i].Entry_Date.ToString("dd/MM/yyyy") + " - " + ApprovedTimes[i].Release_Date.ToString("dd/MM/yyyy") + "\n";
+                for (int j = 0; j < 31; j++)
+                {
+                    if (this.Calender[i, j] == true)
+                    {
+                        num = 2;
+                        first = new DateTime(2019, (i + 1), (j + 1));
+                        s += first.ToString("dd/MM/yyyy") + " - "; //Starting busy days
+                        for (int k = i; k < 12; k++) //Internal loop that continues from the day received until there is a non-invitation day
+                        {
+                            for (int l = 0; l < 31; l++)
+                            {
+                                if (num == 2)
+                                {
+                                    num = 1;
+                                    l = j;
+                                }
+                                if (this.Calender[k, l] == false || (k == 11 && l == 30)) //Find a free day or end this year
+                                {
+                                    last = new DateTime(2019, (k + 1), (l + 1));
+                                    s += last.ToString("dd/MM/yyyy") + "\n"; //Ending busy days
+                                    i = k;
+                                    j = l;
+                                    l = 31;
+                                    k = 12;
+                                    num = 1;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             return s;
         }
+
         //public override string ToString(string format)
         //{
         //    string s = "";

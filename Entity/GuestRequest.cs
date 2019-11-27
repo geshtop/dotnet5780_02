@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    public class GuestRequest
+    public class GuestRequest //Invitation Department
     {
         public DateTime Entry_Date { get; set; }
         public DateTime Release_Date { get; set; }
@@ -17,8 +17,7 @@ namespace Entity
             Release_Date = _Release_Date;
         }
        
-
-        public bool Is_Approved { get; set; }
+        public bool Is_Approved { get; set; } //Status of the request
         public override string ToString()
         {
             return ("GuestRequest:\n" + Entry_Date + "\n" + Release_Date + "\n" + Is_Approved);

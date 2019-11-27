@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    public class HostingUnit : IComparable<HostingUnit>
+    public class HostingUnit : IComparable<HostingUnit> //Hosting Unit Class
     {
-        private readonly int stSerialKey;
-        //בנאי
-        public HostingUnit()
+        private static int stSerialKey = 10000000;
+        private int hostingKey { get; set; }
+        public HostingUnit() //constructor
         {
-            Random rand = new Random(DateTime.Now.Millisecond);
-            stSerialKey = (int)(rand.Next(1, 90000000)) + 100000000;
+            hostingKey = stSerialKey++;
             HostingDiary = new Diary();
         }
-        public long HostingUnitKey { get { return stSerialKey; } }
+        public long HostingUnitKey { get { return this.hostingKey; } } //Unit number
 
         public Diary HostingDiary { get; set; }
 
-        public override string ToString()
+        public override string ToString()  //Print the unit number and busy days
         {
             return  "\n" + HostingUnitKey + "\n" + HostingDiary.ToString();
         }
@@ -30,22 +29,20 @@ namespace Entity
             return HostingDiary.ApproveRequest(guestReq);
         }
 
-        public int GetAnnualBusyDays()
+        public int GetAnnualBusyDays() //The amount of orange days per unit
         {
             return HostingDiary.BusyDays;
         }
 
-        public float GetAnnualBusyPercentage()
+        public float GetAnnualBusyPercentage() //Percentage of occupied days per hosting unit
         {
             return (HostingDiary.BusyDays * 100 / (12 * 31));
         }
 
-        public int CompareTo(HostingUnit other)
+        public int CompareTo(HostingUnit other) //Comparing units by number of days
         {
             return this.HostingDiary.BusyDays.CompareTo(other.HostingDiary.BusyDays);
 
         }
-
-
     }
 }
